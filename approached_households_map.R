@@ -9,6 +9,8 @@ library(purrr)
 hhs_data = read.csv("DATA/TIPTOPHHSBaselineDRC_DATA_WITH_NO_DUPS_2018-06-19_1600.csv")
 district_data = hhs_data[hhs_data$district == 2, ]
 
+district_clusters = read.csv("DATA/TIPTOPHHSBaselineDRC_CLUSTERS_KENGE.csv")
+
 district_data.df = split(district_data, district_data$cluster_bulungu)
 
 l <- leaflet() %>% addProviderTiles(providers$OpenStreetMap.Mapnik)
