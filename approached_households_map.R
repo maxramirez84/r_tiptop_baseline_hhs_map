@@ -48,7 +48,7 @@ map <- leaflet() %>% addProviderTiles(providers$OpenStreetMap.Mapnik)
 # Put households and clusters' boundaries on the map
 names(district.data.cluster) %>%
   # For each cluster (walk), geopositionate households and boundaries 
-  walk(function (cluster) {
+  walk(function(cluster) {
     #browser()
     # Cluster boundaries defined as a circle in which the center is the centroid
     # of GPS points forming the cluster and the radius is the distance between 
