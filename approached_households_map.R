@@ -1,3 +1,17 @@
+#
+# maxramirez84
+# 
+# This script plots in a map geographical coordinates of all visited households 
+# (if GPS coordinates are available) during the 
+# TIPTOP (https://www.tiptopmalaria.org/) Baseline Household Survey (HHS). It 
+# also approximates cluster boundaries as a circle in which the center is the 
+# centroid of the cluster points and the radius the distance between this 
+# centroid and the farthest point inside the cluster.
+#
+# INPUTS : HHS dataset, Cluster Names, Code of the District to be Plotted and
+#          Name of the District to be Plotted.
+# OUTPUTS: A Leaflet (https://leafletjs.com/) map widget
+#
 library(dplyr)
 library(leaflet)
 library(purrr)
