@@ -71,7 +71,8 @@ names(district.data.cluster) %>%
         radius = radius,
         group  = cluster.name
       )
-  })
+  }
+)
 
 # Put layers control to display or hide concrete clusters
 map <- map %>% addLayersControl(
