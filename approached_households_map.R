@@ -34,7 +34,7 @@ map <- leaflet() %>% addProviderTiles(providers$OpenStreetMap.Mapnik)
 # Put households and clusters' boundaries on the map
 names(district.data.cluster) %>%
   # For each cluster (walk), geopositionate households and boundaries 
-  walk(function(cluster) {
+  walk(function (cluster) {
     #browser()
     # Cluster boundaries defined as a circle in which the center is the centroid
     # of GPS points forming the cluster and the radius is the distance between 
@@ -42,8 +42,8 @@ names(district.data.cluster) %>%
     centroid.lng <- mean(district.data.cluster[[cluster]]$longitude, na.rm = T)
     centroid.lat <- mean(district.data.cluster[[cluster]]$latitude, na.rm = T)
     radius <- max(pointDistance(
-      p1 = c(centroid.lng, centroid.lat), 
-      p2 = district.data.cluster[[cluster]][c("longitude", "latitude")],
+      p1     = c(centroid.lng, centroid.lat), 
+      p2     = district.data.cluster[[cluster]][c("longitude", "latitude")],
       lonlat = T
     ), na.rm = T)
     
@@ -55,21 +55,21 @@ names(district.data.cluster) %>%
     map <<- map %>%
       # Add a marker for each geopositionated household in the cluster
       addMarkers(
-        data = district.data.cluster[[cluster]],
-        lng = ~longitude,
-        lat = ~latitude,
-        label = ~sprintf(kHouseholdLabel, cluster.name, household),
-        group = cluster.name,
+        data           = district.data.cluster[[cluster]],
+        lng            = ~longitude,
+        lat            = ~latitude,
+        label          = ~sprintf(kHouseholdLabel, cluster.name, household),
+        group          = cluster.name,
         clusterOptions = markerClusterOptions(removeOutsideVisibleBounds = F)
       ) %>%
       # Add a circle for each cluster (proxy of cluster boundaries)
       addCircles(
-        lng = centroid.lng,
-        lat = centroid.lat,
-        label = cluster.name,
+        lng    = centroid.lng,
+        lat    = centroid.lat,
+        label  = cluster.name,
         weight = 1,
         radius = radius,
-        group = cluster.name
+        group  = cluster.name
       )
   })
 
