@@ -20,7 +20,12 @@ library(raster)
 # File names
 kDataFileName <- 
   "DATA/TIPTOPHHSBaselineDRC_DATA_WITH_NO_DUPS_2018-06-19_1600.csv"
-kClusterMetadataFileName <- "DATA/TIPTOPHHSBaselineDRC_CLUSTERS_BULUNGU.csv"
+  # "DATA/NIG_HHS_Harmonized_withGeoLocate.csv"
+  # "DATA/TIPTOPHHSBaselineDRC_DATA_WITH_NO_DUPS_2018-06-19_1600.csv"
+kClusterMetadataFileName <- 
+  "DATA/TIPTOPHHSBaselineDRC_CLUSTERS_BULUNGU.csv"
+  # "DATA/TIPTOPHHSBaselineNIG_CLUSTERS_OHAUKWU.csv"
+  # "DATA/TIPTOPHHSBaselineDRC_CLUSTERS_BULUNGU.csv"
 
 # Parameters
 kDistrictCode <- 2
@@ -35,6 +40,9 @@ kHouseholdLabel <- "%s | Household %s"
 
 # Read and pre-format GPS disctrict data: Divide data by clusters
 hhs.data <- read.csv(kDataFileName)
+hhs.data$longitude[hhs.data$longitude == 0 | hhs.data$latitude == 0] <- NA
+hhs.data$latitude[hhs.data$longitude == 0 | hhs.data$latitude == 0] <- NA
+
 district.data <- hhs.data[hhs.data$district == kDistrictCode, ]
 district.data.cluster <- split(district.data, 
                                district.data[kDistrictClusterColumn])
@@ -49,7 +57,6 @@ map <- leaflet() %>% addProviderTiles(providers$OpenStreetMap.Mapnik)
 names(district.data.cluster) %>%
   # For each cluster (walk), geopositionate households and boundaries 
   walk(function(cluster) {
-    #browser()
     # Cluster boundaries defined as a circle in which the center is the centroid
     # of GPS points forming the cluster and the radius is the distance between 
     # this center and the farthest point
@@ -60,6 +67,7 @@ names(district.data.cluster) %>%
       p2     = district.data.cluster[[cluster]][c("longitude", "latitude")],
       lonlat = T
     ), na.rm = T)
+    #browser()
     
     # Look up cluster name
     cluster.name <- district.clusters[
