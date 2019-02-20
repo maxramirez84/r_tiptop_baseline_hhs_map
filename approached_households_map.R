@@ -23,17 +23,18 @@ kDataFileName <-
   # "DATA/NIG_HHS_Harmonized_withGeoLocate.csv"
   # "DATA/TIPTOPHHSBaselineDRC_DATA_WITH_NO_DUPS_2018-06-19_1600.csv"
 kClusterMetadataFileName <- 
-  "DATA/TIPTOPHHSBaselineDRC_CLUSTERS_BULUNGU.csv"
+  "DATA/TIPTOPHHSBaselineDRC_CLUSTERS_KENGE.csv"
+  # "DATA/TIPTOPHHSBaselineNIG_CLUSTERS_AKURE.csv"
   # "DATA/TIPTOPHHSBaselineNIG_CLUSTERS_OHAUKWU.csv"
   # "DATA/TIPTOPHHSBaselineDRC_CLUSTERS_BULUNGU.csv"
 
 # Parameters
-kDistrictCode <- 2
-kDistrictName <- "bulungu"
+kDistrictCode <- 1
+kDistrictName <- "kenge"
 
 # Column/Variable names
 kDistrictClusterColumn <- paste0("cluster_", kDistrictName)
-kDistrictDlusterNameColumn <- paste0(kDistrictClusterColumn, "_name")
+kDistrictClusterNameColumn <- paste0(kDistrictClusterColumn, "_name")
 
 # Labels
 kHouseholdLabel <- "%s | Household %s"
@@ -72,7 +73,7 @@ names(district.data.cluster) %>%
     # Look up cluster name
     cluster.name <- district.clusters[
       district.clusters[kDistrictClusterColumn] == cluster, 
-      kDistrictDlusterNameColumn]
+      kDistrictClusterNameColumn]
     
     map <<- map %>%
       # Add a marker for each geopositionated household in the cluster
@@ -98,6 +99,6 @@ names(district.data.cluster) %>%
 
 # Put layers control to display or hide concrete clusters
 map <- map %>% addLayersControl(
-  overlayGroups = district.clusters[[kDistrictDlusterNameColumn]])
+  overlayGroups = district.clusters[[kDistrictClusterNameColumn]])
 
 map
