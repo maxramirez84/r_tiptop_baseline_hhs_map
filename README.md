@@ -11,3 +11,13 @@ The script receives as inputs the following datasets:
 and two parameters; the district code and name to be plotted.
 
 Finally, it produces a [Leaflet](https://leafletjs.com/) map widget with all available household GPS coordinates plotted and cluster boundaries.
+
+## Script 2: IPTp Adherence Heat Map
+This script is named iptp_map.R. It builds a heat map representing the intensity of the IPTp  adherence. In this case, IPTp adherence is defined as taking at least the number of doses indicated by the parameter kIPTp. The script also plots all the households in which a woman was interviewed. And it splits them by those women who achieve the IPTp and those who not.
+
+The script receives as inputs the following dataset:
+1. HHS Dataset, containing for each record (i.e. approached household) the disctrict code, longitude, latitude, consent and SP doses number.
+
+and two parameters; the district code and name to be plotted.
+
+Finally, it produces a [Leaflet](https://leafletjs.com/) map widget with the intensity areas representing IPTp adherence.
