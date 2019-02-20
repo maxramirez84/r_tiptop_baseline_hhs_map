@@ -73,7 +73,8 @@ leaflet(spatial.polygons) %>%
   ) %>%
   # Add intensity areas (where the indicated number of doses is more likely)
   addPolygons(
-    color       = heat.colors(n.levels, NULL)[contour.lines.levels]
+    color       = heat.colors(n.levels, NULL)[contour.lines.levels],
+    group       = "Intensity Areas"
   ) %>%
   # Add one point for each interviewed women in the district who took at least
   # the number of doses indicated by the parameter kIPTp
@@ -84,7 +85,8 @@ leaflet(spatial.polygons) %>%
     opacity     = .8,
     color       = "blue",
     fillColor   = "blue",
-    fillOpacity = 1
+    fillOpacity = 1,
+    group       = "IPTp Achieved"
   ) %>%
   # Add one point for each interviewed women in the district who did NOT took at
   # least the number of doses indicated by the parameter kIPTp
@@ -95,5 +97,10 @@ leaflet(spatial.polygons) %>%
     opacity     = .8,
     color       = "red",
     fillColor   = "red",
-    fillOpacity = 1
+    fillOpacity = 1,
+    group       = "IPTp Failed"
+  ) %>%
+  # Add layers control to display or hide different elements 
+  addLayersControl(
+    overlayGroups = c("Intensity Areas", "IPTp Achieved", "IPTp Failed")
   )
