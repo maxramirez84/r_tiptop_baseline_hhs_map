@@ -64,17 +64,19 @@ spatial.polygons <- SpatialPolygons(polygons)
 # Create Leaflet map widget from a tile layer (OpenStreetMap)
 leaflet(spatial.polygons) %>% 
   addProviderTiles(
-    provider = providers$OpenStreetMap.Mapnik
+    provider    = providers$OpenStreetMap.Mapnik
   ) %>%
   # Add intensity areas (where the indicated number of doses is more likely)
   addPolygons(
-    color    = heat.colors(n.levels, NULL)[contour.lines.levels]
+    color       = heat.colors(n.levels, NULL)[contour.lines.levels]
   ) %>%
   # Add one point for each interviewed women in the district
-  addCircles(
-    lng      = district.data.interviewed$longitude,
-    lat      = district.data.interviewed$latitude,
-    radius   = .001,
-    opacity  = .8,
-    color    = "blue"
+  addCircleMarkers(
+    lng         = district.data.interviewed$longitude,
+    lat         = district.data.interviewed$latitude,
+    radius      = .001,
+    opacity     = .8,
+    color       = "blue",
+    fillColor   = "blue",
+    fillOpacity = 1
   )
