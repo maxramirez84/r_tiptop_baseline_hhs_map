@@ -1,10 +1,15 @@
 #
 # maxramirez84
 # 
-# This script ...
+# This script builds a heat map representing the intensity of the IPTp 
+# adherence. In this case, IPTp adherence is defined as taking at least the 
+# number of doses indicated by the parameter kIPTp. The script also plots all
+# the households in which a woman was interviewed. And it splits them by those
+# women who achieve the IPTp and those who not. 
 #
-# INPUTS : ...
-# OUTPUTS: ...
+# INPUTS : HHS dataset, Code of the District to be Plotted and Name of the 
+#          District to be Plotted.
+# OUTPUTS: A Leaflet (https://leafletjs.com/) map widget
 #
 library(leaflet)
 library(KernSmooth)
