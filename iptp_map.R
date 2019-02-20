@@ -28,13 +28,18 @@ hhs.data$latitude[hhs.data$longitude == 0 | hhs.data$latitude == 0] <- NA
 
 district.data <- hhs.data[hhs.data$district == kDistrictCode, ]
 district.data.interviewed <- district.data[district.data$consent == "Yes", ]
-district.data.iptpn <- district.data[
-  which(district.data$sp_doses_number >= kIPTp), ]
+
+# Divide the women interviewed in two groups: (1) women who took at least the
+# number of doses indicated by the parameter kIPTp and (2) the others
+split.condition = !is.na(district.data.interviewed$sp_doses_number) & 
+  district.data.interviewed$sp_doses_number >= kIPTp
+district.data.iptpn.achieved <- district.data.interviewed[split.condition, ]
+district.data.iptpn.failed <- district.data.interviewed[!split.condition, ]
 
 # Compute Kernel Density Estimation (KDE) binning the GPS coordinates according 
-# to the bandwith provided.
-x = district.data.iptpn[!is.na(district.data.iptpn$longitude), 
-                        c("longitude", "latitude")]
+# to the bandwith provided
+x = district.data.iptpn.achieved[!is.na(district.data.iptpn.achieved$longitude), 
+                                 c("longitude", "latitude")]
 kde2d <- bkde2D(
   x         = x,
   bandwidth = c(bw.ucv(x$longitude), bw.ucv(x$latitude))
@@ -70,13 +75,25 @@ leaflet(spatial.polygons) %>%
   addPolygons(
     color       = heat.colors(n.levels, NULL)[contour.lines.levels]
   ) %>%
-  # Add one point for each interviewed women in the district
+  # Add one point for each interviewed women in the district who took at least
+  # the number of doses indicated by the parameter kIPTp
   addCircleMarkers(
-    lng         = district.data.interviewed$longitude,
-    lat         = district.data.interviewed$latitude,
+    lng         = district.data.iptpn.achieved$longitude,
+    lat         = district.data.iptpn.achieved$latitude,
     radius      = .001,
     opacity     = .8,
     color       = "blue",
     fillColor   = "blue",
+    fillOpacity = 1
+  ) %>%
+  # Add one point for each interviewed women in the district who did NOT took at
+  # least the number of doses indicated by the parameter kIPTp
+  addCircleMarkers(
+    lng         = district.data.iptpn.failed$longitude,
+    lat         = district.data.iptpn.failed$latitude,
+    radius      = .001,
+    opacity     = .8,
+    color       = "red",
+    fillColor   = "red",
     fillOpacity = 1
   )
