@@ -18,6 +18,6 @@ This script is named iptp_map.R. It builds a heat map representing the intensity
 The script receives as inputs the following dataset:
 1. HHS Dataset, containing for each record (i.e. approached household) the disctrict code, longitude, latitude, consent and SP doses number.
 
-and two parameters; the district code and name to be plotted.
+and one parameter; the district code to be plotted.
 
 Finally, it produces a [Leaflet](https://leafletjs.com/) map widget with the intensity areas representing IPTp adherence.

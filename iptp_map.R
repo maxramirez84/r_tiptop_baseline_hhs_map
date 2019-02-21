@@ -7,8 +7,7 @@
 # the households in which a woman was interviewed. And it splits them by those
 # women who achieve the IPTp and those who not. 
 #
-# INPUTS : HHS dataset, Code of the District to be Plotted and Name of the 
-#          District to be Plotted.
+# INPUTS : HHS dataset and Code of the District to be Plotted
 # OUTPUTS: A Leaflet (https://leafletjs.com/) map widget
 #
 library(leaflet)
@@ -22,8 +21,7 @@ kDataFileName <-
   # "DATA/TIPTOPHHSBaselineDRC_DATA_WITH_NO_DUPS_2018-06-19_1600.csv"
 
 # Parameters
-kDistrictCode <- "Akure South"
-kDistrictName <- "akure"
+kDistrictCode <- "Ohaukwu"
 kIPTp <- 2
 
 # Read and pre-format GPS disctrict data for IPTp
