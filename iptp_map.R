@@ -22,15 +22,17 @@ kDataFileName <-
 
 # Parameters
 kDistrictCode <- "Ohaukwu"
-kIPTp <- 2
+kIPTp <- 3
 
 # Read and pre-format GPS disctrict data for IPTp
-hhs.data <- read.csv(kDataFileName)
+hhs.data <- read.csv(kDataFileName, stringsAsFactors = F)
 hhs.data$longitude[hhs.data$longitude == 0 | hhs.data$latitude == 0] <- NA
 hhs.data$latitude[hhs.data$longitude == 0 | hhs.data$latitude == 0] <- NA
 
 district.data <- hhs.data[hhs.data$district == kDistrictCode, ]
-district.data.interviewed <- district.data[district.data$consent == "Yes", ]
+district.data$consent[district.data$consent == "No"] <- 0
+district.data$consent[district.data$consent == "Yes"] <- 1
+district.data.interviewed <- district.data[which(district.data$consent == 1), ]
 
 # Divide the women interviewed in two groups: (1) women who took at least the
 # number of doses indicated by the parameter kIPTp and (2) the others
