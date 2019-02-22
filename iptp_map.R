@@ -16,12 +16,12 @@ library(sp)
 
 # File names
 kDataFileName <- 
-  "DATA/NIG_HHS_Harmonized_withGeoLocate.csv"
+  "DATA/TIPTOPHHSBaselineDRC_DATA_WITH_NO_DUPS_2018-06-19_1600.csv"
   # "DATA/NIG_HHS_Harmonized_withGeoLocate.csv"
   # "DATA/TIPTOPHHSBaselineDRC_DATA_WITH_NO_DUPS_2018-06-19_1600.csv"
 
 # Parameters
-kDistrictCode <- "Ohaukwu"
+kDistrictCode <- 2
 kIPTp <- 3
 
 # Read and pre-format GPS disctrict data for IPTp
@@ -43,8 +43,9 @@ district.data.iptpn.failed <- district.data.interviewed[!split.condition, ]
 
 # Compute Kernel Density Estimation (KDE) binning the GPS coordinates according 
 # to the bandwith provided
-x = district.data.iptpn.achieved[!is.na(district.data.iptpn.achieved$longitude), 
-                                 c("longitude", "latitude")]
+x = district.data.iptpn.achieved[
+  !is.na(district.data.iptpn.achieved$longitude) & 
+    !is.na(district.data.iptpn.achieved$latitude), c("longitude", "latitude")]
 kde2d <- bkde2D(
   x         = x,
   bandwidth = c(bw.ucv(x$longitude), bw.ucv(x$latitude))
